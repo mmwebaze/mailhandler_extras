@@ -1,0 +1,5 @@
+langcode: en
+id: extra_body
+label: Extra analysis of the message body
+plugin: extra_body
+weight: 45

@@ -1,0 +1,7 @@
+name: mailhandler extras
+type: module
+description: 'Provides extra functional utilities for the Mailhandler module'
+core: 8.x
+package: mailhandler
+dependencies:
+  - mailhandler
