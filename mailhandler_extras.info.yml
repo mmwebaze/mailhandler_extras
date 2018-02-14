@@ -1,0 +1,8 @@
+name: mailhandler extras
+type: module
+description: 'Provides extra functional utilities for the Mailhandler and inmail modules'
+core: 8.x
+package: mailhandler
+dependencies:
+  - inmail
+  - mailhandler
