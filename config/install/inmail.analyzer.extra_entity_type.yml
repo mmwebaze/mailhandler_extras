@@ -1,0 +1,5 @@
+langcode: en
+id: extra_entity_type
+label: Entity type and bundle identification from the mail subject
+plugin: extra_entity_type
+weight: 30
