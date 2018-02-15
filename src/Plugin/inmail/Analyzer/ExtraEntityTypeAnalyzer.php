@@ -42,16 +42,20 @@ class ExtraEntityTypeAnalyzer extends AnalyzerBase{
     $entity_type = NULL;
     $bundle = NULL;
 
-    // Match entity type.
-    if (preg_match('/\[(\w+)\]/', $subject, $matches)) {
-      $entity_type = \Drupal::entityTypeManager()->hasDefinition($matches[1]) ? $matches[1] : NULL;
-      $subject = str_replace(reset($matches), '', $subject);
-      // In case entity type was identified successfully, continue to bundle.
-      if ($entity_type && preg_match('/\[(\w+)\]\s+/', $subject, $matches)) {
-        $bundle = $this->getBundle($entity_type, $matches[1]);
-        $subject = str_replace(reset($matches), '', $subject);
-      }
-    }
+//    // Match entity type.
+//    if (preg_match('/\[(\w+)\]/', $subject, $matches)) {
+//      $entity_type = \Drupal::entityTypeManager()->hasDefinition($matches[1]) ? $matches[1] : NULL;
+//      $subject = str_replace(reset($matches), '', $subject);
+//      // In case entity type was identified successfully, continue to bundle.
+//      if ($entity_type && preg_match('/\[(\w+)\]\s+/', $subject, $matches)) {
+//        $bundle = $this->getBundle($entity_type, $matches[1]);
+//        $subject = str_replace(reset($matches), '', $subject);
+//      }
+//    }
+
+    // JSI workaround using email address to post comments.
+    $entity_type = \Drupal::entityTypeManager()->hasDefinition('comment') ? 'comment' : NULL;
+    $bundle = $this->getBundle($entity_type, 'comment');
 
     // Add entity type context.
     $context_data = [

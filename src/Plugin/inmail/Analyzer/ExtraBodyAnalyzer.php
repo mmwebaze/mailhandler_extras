@@ -41,11 +41,6 @@ class ExtraBodyAnalyzer extends AnalyzerBase
      */
     protected function analyzeBody(MimeMessageInterface $message, DefaultAnalyzerResult $result) {
         $body = $result->getBody() ?: $message->getPlainText();
-        //$sender = $result->getSender()
-        //$matches = [];
-       /* drupal_set_message($message->getTo()[0]->getAddress().' *********');
-        preg_match_all('/\+([0-9,]+)/', 'alice2018+100@example.com', $matches);
-        drupal_set_message(json_encode(explode('+', $matches[0][0])[1]));*/
         $filteredBody = explode('quoted-printable', $body);
 
         if (count($filteredBody) > 1){

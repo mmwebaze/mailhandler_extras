@@ -239,7 +239,7 @@ class ExtraMailhandlerComment extends HandlerBase implements ContainerFactoryPlu
     //$entity_id = $matches[1];
 
     $entity_id = explode('+', $idFromEmail[0][0])[1];
-    drupal_set_message($entity_id.'***');
+
     $subject = str_replace(reset($matches), '', $subject);
     $result->setSubject($subject);
 
