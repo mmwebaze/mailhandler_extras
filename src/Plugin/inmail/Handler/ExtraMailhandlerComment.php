@@ -104,7 +104,7 @@ class ExtraMailhandlerComment extends HandlerBase implements ContainerFactoryPlu
    *   Throws an exception in case user is not authorized to create a comment.
    */
   protected function createComment(MimeMessageInterface $message, DefaultAnalyzerResult $result) {
-    $entity_id = $this->getEntityId($result);
+    $entity_id = $this->getEntityId($message, $result);
 
     // Validate whether user is allowed to post comments.
     $user = $this->validateUser($result);
@@ -222,16 +222,23 @@ class ExtraMailhandlerComment extends HandlerBase implements ContainerFactoryPlu
    * @throws \Exception.
    *   Throws an exception in case entity ID is not valid.
    */
-  protected function getEntityId(DefaultAnalyzerResult $result) {
+  protected function getEntityId(MimeMessageInterface $message, DefaultAnalyzerResult $result) {
     $subject = $result->getSubject();
+
     // JSI addition
-    if (!preg_match('/\[#(\d+)\]/', $subject, $matches)) {
+    /*if (!preg_match('/\[#(\d+)\]/', $subject, $matches)) {
       //  if (!preg_match('/^\[#(\d+)\]\s+/', $subject, $matches)) {
       throw new \Exception('Referenced entity ID of the comment could not be identified.');
+    }*/
+
+    if (!preg_match_all('/\+([0-9,]+)/', $message->getTo()[0]->getAddress(), $matches)){
+        throw new \Exception('Referenced entity ID of the comment could not be identified.');
     }
 
     // Get an entity ID and update the subject.
-    $entity_id = $matches[1];
+    //$entity_id = $matches[1];
+
+    $entity_id = explode('+', $matches[0][0])[1];
     $subject = str_replace(reset($matches), '', $subject);
     $result->setSubject($subject);
 
