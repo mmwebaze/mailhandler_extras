@@ -231,14 +231,15 @@ class ExtraMailhandlerComment extends HandlerBase implements ContainerFactoryPlu
       throw new \Exception('Referenced entity ID of the comment could not be identified.');
     }*/
 
-    if (!preg_match_all('/\+([0-9,]+)/', $message->getTo()[0]->getAddress(), $matches)){
+    if (!preg_match_all('/\+([0-9,]+)/', $message->getTo()[0]->getAddress(), $idFromEmail)){
         throw new \Exception('Referenced entity ID of the comment could not be identified.');
     }
 
     // Get an entity ID and update the subject.
     //$entity_id = $matches[1];
 
-    $entity_id = explode('+', $matches[0][0])[1];
+    $entity_id = explode('+', $idFromEmail[0][0])[1];
+    drupal_set_message($entity_id.'***');
     $subject = str_replace(reset($matches), '', $subject);
     $result->setSubject($subject);
 
